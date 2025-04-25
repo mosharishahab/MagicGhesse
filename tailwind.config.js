@@ -7,6 +7,7 @@ export default {
     extend: {theme: {
   extend: {
     animation: {
+            'bounce-slow': 'bounce 3s infinite',
       'bounce-slow': 'bounce 3s infinite',
     },
   }
