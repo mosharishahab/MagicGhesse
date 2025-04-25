@@ -4,7 +4,13 @@ export default {
     "./client/src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {theme: {
+  extend: {
+    animation: {
+      'bounce-slow': 'bounce 3s infinite',
+    },
+  }
+}},
   },
   plugins: [],
 }
