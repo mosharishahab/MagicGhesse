@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>قصه‌ی جادویی شهاب</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- فونت فارسی کلمه -->
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(to top left, #1a237e, #0d47a1);
+      overflow: hidden;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      padding-top: 50px;
+    }
+
+    /* بکگراند ستاره‌ای */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://i.ibb.co/0Jmshvb/stars-bg.gif') repeat;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    input {
+      margin: 10px;
+      padding: 10px;
+      font-size: 1em;
+      width: 250px;
+      border: 2px solid #64b5f6;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      background-color: #3949ab;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #1a237e;
+    }
+
+    #story {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px dashed #64b5f6;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 500px;
+      font-size: 1.3em;
+      text-align: justify;
+      min-height: 150px;
+    }
+
+    /* افکت تایپ کردن */
+    .typing {
+      border-right: 2px solid #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: white }
+    }
+  </style>
+
+</head>
+<body>
+
+  <h1>قصه‌ی جادویی مخصوص تو!</h1>
+
+  <input type="text" id="nameInput" placeholder="اسم کودک">
+  <input type="text" id="animalInput" placeholder="حیوان مورد علاقه">
+  <input type="text" id="topicInput" placeholder="موضوع یا پیام قصه">
+
+  <br><br>
+
+  <button onclick="generateStory()">قصه بساز!</button>
+
+  <div id="story"></div>
+
+  <script>
+    const beginnings = [
+      "روزی روزگاری، کودکی به نام {name} با دوست جادویی‌اش یعنی {animal} زندگی می‌کرد...",
+      "در سرزمینی دور، {name} کوچولو همراه {animal} به دنبال ماجراجویی می‌گشتند...",
+      "{name} و {animal} بهترین دوستان یک روستای جادویی بودند که همه چیز در آن ممکن بود..."
+    ];
+
+    const middles = [
+      "روزی تصمیم گرفتند سفری برای کشف راز {topic} شروع کنند.",
+      "{name} از {animal} خواست که او را در جستجوی {topic} همراهی کند.",
+      "با کمک هم، ماجراجویی پر رمز و رازی درباره‌ی {topic} آغاز شد."
+    ];
+
+    const endings = [
+      "در پایان سفرشان، فهمیدند که {topic} چقدر ارزشمند است و با قلبی پر از شادی به خانه بازگشتند.",
+      "آنها با هم یاد گرفتند که {topic} می‌تواند دنیا را بهتر کند.",
+      "{name} و {animal} پس از ماجراهای فراوان، قهرمانان داستان {topic} شدند."
+    ];
+
+    function generateStory() {
+      const name = document.getElementById('nameInput').value.trim();
+      const animal = document.getElementById('animalInput').value.trim();
+      const topic = document.getElementById('topicInput').value.trim();
+
+      if (!name || !animal || !topic) {
+        document.getElementById('story').innerText = "لطفاً همه‌ی فیلدها رو پر کن!";
+        return;
+      }
+
+      const randomBegin = beginnings[Math.floor(Math.random() * beginnings.length)];
+      const randomMiddle = middles[Math.floor(Math.random() * middles.length)];
+      const randomEnd = endings[Math.floor(Math.random() * endings.length)];
+
+      let story = `${randomBegin} ${randomMiddle} ${randomEnd}`;
+
+      story = story.replaceAll("{name}", name)
+                   .replaceAll("{animal}", animal)
+                   .replaceAll("{topic}", topic);
+
+      const storyDiv = document.getElementById('story');
+      storyDiv.classList.remove('typing'); // اگر قبلش داشت حذف کن
+      void storyDiv.offsetWidth; // ترفند برای ریست انیمیشن
+      storyDiv.innerText = story;
+      storyDiv.classList.add('typing');
+    }
+  </script>
+
+</body>
+</html>
